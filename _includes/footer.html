@@ -1,0 +1,38 @@
+<footer class="site-footer">
+    <div class="footer-container">
+        <div class="footer-section brand">
+            <h2 class="footer-title">{{ site.title }}</h2>
+        </div>
+
+        <div class="footer-section links">
+            <ul class="footer-list">
+                {% if site.github_username %}
+                <li>
+                    <a href="https://github.com/{{ site.github_username }}" target="_blank" rel="noopener noreferrer">
+                        <i class="fab fa-github"></i> GitHub
+                    </a>
+                </li>
+                {% endif %}
+                {% if site.twitter_username %}
+                <li>
+                    <a href="https://twitter.com/{{ site.twitter_username }}" target="_blank" rel="noopener noreferrer">
+                        <i class="fab fa-twitter"></i> Twitter
+                    </a>
+                </li>
+                {% endif %}
+                {% if site.linkedin_username %}
+                <li>
+                    <a href="https://linkedin.com/in/{{ site.linkedin_username }}" target="_blank"
+                        rel="noopener noreferrer">
+                        <i class="fab fa-linkedin"></i> LinkedIn
+                    </a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+
+        <div class="footer-section description">
+            <p class="footer-description">{{ site.description }}</p>
+        </div>
+    </div>
+</footer>

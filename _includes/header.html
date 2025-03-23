@@ -1,0 +1,19 @@
+<header class="navbar">
+    <div class="navbar-container">
+        <a href="{{ site.baseurl }}/" class="navbar-brand">{{ site.title }}</a>
+
+        <nav class="navbar-menu">
+            {% for page in site.pages %}
+            {% if page.title %}
+            <a class="nav-link" href="{{ page.url | prepend: site.baseurl }}">{{ page.title }}</a>
+            {% endif %}
+            {% endfor %}
+        </nav>
+
+        <div class="navbar-icons">
+            <a href="{{ "/feed.xml" | prepend: site.baseurl }}" class="rss-icon">
+                <i class="fas fa-square-rss" alt="RSS Feed"></i>
+            </a>
+        </div>
+    </div>
+</header>
