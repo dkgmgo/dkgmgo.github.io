@@ -3,4 +3,7 @@ layout: page
 permalink: /
 ---
 
-Hello I am Gausse
+<div class="home">
+  Hello I am Gausse
+  <h1>coming soon...</h1>
+</div>

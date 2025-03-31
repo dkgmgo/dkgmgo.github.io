@@ -11,9 +11,17 @@
         </nav>
 
         <div class="navbar-icons">
+            <a class="menu-toggle" onclick="toggleMenu()">
+                <i class="fas fa-bars"></i>
+            </a>
             <a href="{{ "/feed.xml" | prepend: site.baseurl }}" class="rss-icon">
                 <i class="fas fa-square-rss" alt="RSS Feed"></i>
             </a>
         </div>
     </div>
 </header>
+<script>
+    function toggleMenu() {
+        document.querySelector('.navbar-menu').classList.toggle('show');
+    }
+</script>

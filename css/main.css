@@ -153,6 +153,9 @@ h6 {
     color: #FE9900;
 }
 
+.menu-toggle {
+    display: none;
+}
 @media (max-width: 768px) {
     .navbar-menu {
         display: none;
@@ -168,6 +171,9 @@ h6 {
     .navbar-menu.show {
         display: flex;
     }
+.menu-toggle {
+    display: block;
+}
 }
 
 
