@@ -192,6 +192,51 @@ h6 {
     color: #333;
 }
 
+/* about style */
+.about-top {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+    margin: auto;
+}
+
+.about-top img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.about-intro {
+    flex: 1;
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+.about-down {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+@media (max-width: 600px) {
+    .about-top {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .about-top img {
+        width: 120px;
+        height: 120px;
+    }
+
+    .about-down {
+        flex-direction: column;
+        text-align: center;
+    }
+}
 .posts {
     list-style-type: none;
     padding: 0;
@@ -333,4 +378,81 @@ h6 {
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
     border-radius: 3px;
+}
+/* timeline */
+.timeline-section {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 0 20px;
+    font-family: Arial, sans-serif;
+}
+
+.timeline-section h2 {
+    font-size: 24px;
+    color: #222;
+    margin-bottom: 20px;
+    border-left: 5px solid hsl(145, 100%, 50%);
+    padding-left: 15px;
+}
+
+.timeline {
+    border-left: 3px solid #ccc;
+    padding-left: 20px;
+}
+
+.timeline-event {
+    position: relative;
+    margin-bottom: 30px;
+    padding-left: 20px;
+}
+
+.timeline-event::before {
+    content: '';
+    position: absolute;
+    top: 5px;
+    left: -10px;
+    width: 15px;
+    height: 15px;
+    background-color: hsl(145, 100%, 50%);
+    border-radius: 50%;
+    border: 3px solid white;
+    box-shadow: 0 0 0 2px hsl(145, 100%, 50%);
+}
+
+.timeline-event h3 {
+    margin: 0;
+    font-size: 18px;
+    color: hsl(145, 100%, 50%);
+}
+
+.timeline-event h4 {
+    margin: 5px 0;
+    font-size: 16px;
+    font-weight: normal;
+    color: #555;
+}
+
+.timeline-event p {
+    margin: 5px 0;
+    font-size: 14px;
+    color: #333;
+}
+
+@media (max-width: 600px) {
+    .timeline-section {
+        padding: 0 10px;
+    }
+
+    .timeline-event {
+        padding-left: 15px;
+    }
+
+    .timeline-event h3 {
+        font-size: 16px;
+    }
+
+    .timeline-event h4,
+    .timeline-event p {
+        font-size: 14px;
+    }
 }
