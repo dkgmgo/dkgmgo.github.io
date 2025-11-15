@@ -60,3 +60,11 @@ kramdown:
   auto_ids: true
   hard_wrap: false
   syntax_highlighter: rouge
+
+collections:
+  slides:
+    output: true
+    permalink: /papers/:title/
+  posts:
+    output: true
+    permalink: /posts/:title/

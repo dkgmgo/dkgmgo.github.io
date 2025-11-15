@@ -1,0 +1,218 @@
+.bottom-bar {
+    background-color: #222;
+    color: #fff;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    font-size: 20px;
+    padding: .8em;
+    text-align: left;
+    z-index: 1;
+
+    p {
+        margin: 0;
+    }
+
+    .impact &,
+    .full & {
+        display: none;
+    }
+}
+
+.remark-slide-number {
+    color: #fff;
+    right: 1em;
+    opacity: .6;
+    font-size: 0.8em;
+    z-index: 2;
+
+    .no-counter & {
+        display: none;
+    }
+}
+
+/*Copied from https://github.com/1-2-3/remark-it/blob/master/css/*/
+.abs-layout {
+    position: absolute;
+}
+
+.relative-layout {
+    position: relative;
+}
+
+.top-0 {
+    top: 0%;
+}
+
+.top-10 {
+    top: 10%;
+}
+
+.top-25 {
+    top: 25%;
+}
+
+.top-50 {
+    top: 50%;
+}
+
+.top-80 {
+    top: 80%;
+}
+
+.top-90 {
+    top: 90%;
+}
+
+.left-0 {
+    left: 0%;
+}
+
+.left-10 {
+    left: 10%;
+}
+
+.left-25 {
+    left: 25%;
+}
+
+.left-50 {
+    left: 50%;
+}
+
+.left-80 {
+    left: 80%;
+}
+
+.left-90 {
+    left: 90%;
+}
+
+.right-0 {
+    right: 0%;
+}
+
+.right-10 {
+    right: 10%;
+}
+
+.right-25 {
+    right: 25%;
+}
+
+.right-50 {
+    right: 50%;
+}
+
+.right-80 {
+    right: 80%;
+}
+
+.right-90 {
+    right: 90%;
+}
+
+.right-100 {
+    right: 100%;
+}
+
+.bottom-0 {
+    bottom: 0%;
+}
+
+.bottom-10 {
+    bottom: 10%;
+}
+
+.bottom-25 {
+    bottom: 25%;
+}
+
+.bottom-50 {
+    bottom: 50%;
+}
+
+.bottom-80 {
+    bottom: 80%;
+}
+
+.bottom-90 {
+    bottom: 90%;
+}
+
+.bottom-100 {
+    bottom: 100%;
+}
+
+.width-0 {
+    width: 0%;
+    flex-basis: 0%;
+}
+
+.width-10 {
+    width: 10%;
+    flex-basis: 10%;
+}
+
+.width-25 {
+    width: 25%;
+    flex-basis: 25%;
+}
+
+.width-50 {
+    width: 50%;
+    flex-basis: 50%;
+}
+
+.width-80 {
+    width: 80%;
+    flex-basis: 80%;
+}
+
+.width-100 {
+    width: 100%;
+    flex-basis: 100%;
+}
+
+.width-150 {
+    width: 150%;
+    flex-basis: 150%;
+}
+
+.width-200 {
+    width: 200%;
+    flex-basis: 200%;
+}
+
+.height-0 {
+    height: 0%;
+}
+
+.height-10 {
+    height: 10%;
+}
+
+.height-25 {
+    height: 25%;
+}
+
+.height-50 {
+    height: 50%;
+}
+
+.height-80 {
+    height: 80%;
+}
+
+.height-100 {
+    height: 100%;
+}
+
+.height-150 {
+    height: 150%;
+}
+
+.height-200 {
+    height: 200%;
+}
