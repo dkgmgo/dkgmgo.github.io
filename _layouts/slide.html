@@ -24,8 +24,9 @@
 <!-- slideshow -->
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
 <script>
+    let slideshow = {}; // so that decktape export works
     document.addEventListener('DOMContentLoaded', function () {
-        const slideshow = remark.create({
+        slideshow = remark.create({
             source: `{{ content }}`,
         });
     });

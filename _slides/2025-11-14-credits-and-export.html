@@ -1,0 +1,52 @@
+---
+layout: slide
+title: Credits and Export Tutorial
+categories: [slides]
+biblio: Resources used to make the slides and a tutorial on exporting them
+mathjax: true
+---
+
+layout: true
+class: typo, typo-selection
+
+.bottom-bar[
+<a href="/papers" , class="nav-link">Back to the papers list</a>
+]
+
+---
+
+count: false
+class: center, middle, hide-the-number
+
+# {{ page.title }}
+
+{{ page.biblio }}
+
+<small>.remark-slide-number.not-transparent[{{ site.title }}]</small>
+
+---
+
+## Credits
+
+The presentations are powered by:
+
+- **Remarkjs**: [remarkjs.com](https://remarkjs.com/)
+- **1-2-3 Remark-it template**: [remark-it](https://github.com/1-2-3/remark-it/)
+
+<small>.mt-xxxl.mb-0.center[Thanks a lot !!!]</small>
+
+---
+
+## Export PDF
+
+1. Install [decktape](https://github.com/astefanutti/decktape)
+\`\`\`sh
+$ npm install -g decktape
+\`\`\`
+2. Export the PDF using the decktape command line and the URL of the presentation you want, for example:
+\`\`\`sh
+$ decktape remark https://dkgmgo.github.io/papers/credits-and-export/ credits-and-export.pdf
+\`\`\`
+3. Enjoy your PDF slides!
+
+decktape supports many options, check them with \`decktape -h\`

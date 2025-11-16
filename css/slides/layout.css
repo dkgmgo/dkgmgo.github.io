@@ -27,9 +27,13 @@
     font-size: 0.8em;
     z-index: 2;
 
-    .no-counter & {
-        display: none;
-    }
+}
+.hide-the-number .remark-slide-number {
+    color: transparent;
+}
+
+.not-transparent {
+    color: #fff !important;
 }
 
 /*Copied from https://github.com/1-2-3/remark-it/blob/master/css/*/
