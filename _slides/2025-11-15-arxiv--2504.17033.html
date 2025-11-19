@@ -36,15 +36,13 @@ class: nord-light, center, middle
 
 ---
 
-class: mermaid-slide
-
 ### Single-Source Shortest Path (SSSP)
 
 Given a graph with n nodes and m edges, and one chosen start node, what is the shortest (minimum-cost) path from that node to every other node in
 the graph?
 
-.center[
-<pre class="mermaid">
+.center.mermaid[
+<pre>
 graph LR
 D((D))
 C((C))
@@ -122,7 +120,8 @@ class: nord-light, center, middle
 The first assumption is that the input graph has constant in-degrees and out-degrees and non-negative edge weights.
 A transformation is provided to convert any graph $G$ to a graph $G'$ with at most 2 in-degrees and 2 out-degrees.
 
-<pre class="mermaid">
+.mermaid[
+<pre>
 graph TD
 
 subgraph "Transformed Graph G'"
@@ -182,6 +181,7 @@ class C,x_C_A,x_C_B C;
 classDef D fill:#ffafcc,stroke:#9d174d,stroke-width:2px;
 class D,x_D_A,x_D_B D;
 </pre>
+]
 
 At the end we have a graph $G'$ with $O(m)$ nodes and $O(m)$ edges.
 
@@ -233,8 +233,8 @@ nodes with $d[u] < B'$ and nodes with $B' \\leq d[u] < B$.
 - The first part is the same problem but with a smaller  source set .nord13[{$ u \\in S \\mid d[u] < B' $}]
 - The source set for the second part is the union of .nord12[{$ u \\in S \\mid B' \\leq d[u] < B $}] and the .nord11[set of neighbors of the completed nodes from the first part]
 
-.width-80[
-<pre class="mermaid">
+.width-80.mermaid[
+<pre>
 graph TD
 
 S1((S1 : 0))
@@ -284,7 +284,8 @@ if the shortest path to $u$ does not pass through any node in $P$, then it compu
 
 .width-50.pt-xxs.pr-xs[![](/assets/arXiv--2504.17033/finding_pivots.png)]
 
-<pre class="mermaid">
+.mermaid[
+<pre>
 graph TD
 
 S1((S1 : 0))
@@ -341,6 +342,7 @@ note["B = 9"]
 note2["k = 4"]
 end
 </pre>
+]
 
 - Here the selected pivots are $S1$ and $S3$
 ]
@@ -383,8 +385,8 @@ This is why choosing an appropriate data structure to manage them is essential.
 .rect.round-xxl.lime.border.width-11[(I, 26), (G, 30) :ub=35]
 .rect.round-xxl.lime.border.width-11[(K, 40) :ub=40]
 ]
-.width-25[
-<pre class="mermaid" style="background-color: var(--oc-green-6); border-color: transparent;">
+.width-25.mermaid[
+<pre style="background-color: var(--oc-green-6); border-color: transparent;">
 graph TD
 
 A((35))

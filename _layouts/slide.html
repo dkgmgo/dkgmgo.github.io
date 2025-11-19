@@ -23,24 +23,67 @@
 </script>
 {% endif %}
 
+<!-- remark -->
+<script src="/js/remark.min.js"></script>
+
 <!-- mermaid -->
 <script type="module">
-    import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
 
     mermaid.initialize({
-        startOnLoad: true,
+        startOnLoad: false,
         theme: "forest",
+        gantt: {
+            fontSize: 26,
+            barHeight: 30,
+            useMaxWidth: false,
+        },
     });
+
+    async function renderMermaidDiagrams() {
+        const mermaidCmps = document.querySelectorAll(".mermaid");
+
+        for (let i = 0; i < mermaidCmps.length; i++) {
+            const mermaidCmp = mermaidCmps[i];
+
+            let graphDefinition = "";
+            const pCmps = mermaidCmp.querySelectorAll("pre");
+            for (const pCmp of pCmps) {
+                graphDefinition += pCmp.textContent;
+            }
+
+            if (!graphDefinition.trim()) continue;
+
+            try {
+                const { svg } = await mermaid.render(`graphDiv${i}`, graphDefinition);
+                mermaidCmp.innerHTML = svg;
+            } catch (error) {
+                console.error(`Error rendering mermaid diagram ${i}:`, error);
+                console.error('Graph definition:', graphDefinition);
+            }
+        }
+    }
+
+    window.renderMermaidDiagrams = renderMermaidDiagrams;
 </script>
 
-<!-- slideshow -->
-<script src="/js/remark.min.js"></script>
 <script>
-    let slideshow = {}; // so that decktape export works
+
+    let slideshow = {}; // useful for decktape export
     document.addEventListener('DOMContentLoaded', function () {
         slideshow = remark.create({
             source: `{{ content }}`,
             countIncrementalSlides: false,
         });
+
+        slideshow.on('afterShowSlide', function (slide) {
+            if (window.renderMermaidDiagrams) {
+                window.renderMermaidDiagrams();
+            }
+        });
+
+        if (window.renderMermaidDiagrams) {
+            window.renderMermaidDiagrams();
+        }
     });
 </script>
