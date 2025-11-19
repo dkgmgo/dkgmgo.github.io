@@ -6,6 +6,8 @@
 <link rel="stylesheet" type="text/css" href="/css/slides/nord.css" />
 <link rel="stylesheet" type="text/css" href="/css/slides/remark_it_style.css" />
 <link rel="stylesheet" type="text/css" href="/css/slides/spaces.css" />
+<link rel="stylesheet" type="text/css" href="/css/slides/open-color.css" />
+<link rel="stylesheet" type="text/css" href="/css/slides/text-rect.css" />
 
 <!-- mathjax -->
 {% if page.mathjax %}
@@ -21,13 +23,24 @@
 </script>
 {% endif %}
 
+<!-- mermaid -->
+<script type="module">
+    import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
+
+    mermaid.initialize({
+        startOnLoad: true,
+        theme: "forest",
+    });
+</script>
+
 <!-- slideshow -->
-<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="/js/remark.min.js"></script>
 <script>
     let slideshow = {}; // so that decktape export works
     document.addEventListener('DOMContentLoaded', function () {
         slideshow = remark.create({
             source: `{{ content }}`,
+            countIncrementalSlides: false,
         });
     });
 </script>

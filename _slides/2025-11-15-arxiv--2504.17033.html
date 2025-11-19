@@ -1,0 +1,461 @@
+---
+layout: slide
+title: Breaking the Sorting Barrier for Directed Single-Source Shortest Paths
+categories: [slides]
+biblio: arXiv:2504.17033 ~ Ran Duan, Jiayi Mao, Xiao Mao, Xinkai Shu, Longhui Yin (2025)
+mathjax: true
+---
+
+layout: true
+class: typo, typo-selection
+
+.bottom-bar[
+<a href="/papers" , class="nav-link">Back to the papers list</a>
+]
+
+---
+
+count: false
+class: center, middle, hide-the-number
+
+# {{ page.title }}
+
+{{ page.biblio }}
+
+[read the paper](https://arxiv.org/abs/2504.17033)
+
+<small>.remark-slide-number.not-transparent[{{ site.title }}]</small>
+
+---
+
+class: nord-light, center, middle
+
+# The Problem and the Result
+
+<small>.letter-spacing-20[SSSP and BMSSP]</small>
+
+---
+
+class: mermaid-slide
+
+### Single-Source Shortest Path (SSSP)
+
+Given a graph with n nodes and m edges, and one chosen start node, what is the shortest (minimum-cost) path from that node to every other node in
+the graph?
+
+.center[
+<pre class="mermaid">
+graph LR
+D((D))
+C((C))
+B((B))
+A((A)):::source
+
+A --&gt;|6| B
+A --&gt;|2| C
+A --&gt;|3| D
+C --&gt;|2| B
+D --&gt;|2| B
+
+classDef B fill:#a0c4ff,stroke:#1e3a8a,stroke-width:2px;
+class B B;
+classDef A fill:#a0e7a0,stroke:#2e7d32,stroke-width:2px;
+class A A;
+classDef C fill:#ffd6a5,stroke:#c2410c,stroke-width:2px;
+class C C;
+classDef D fill:#ffafcc,stroke:#9d174d,stroke-width:2px;
+class D D;
+</pre>
+]
+
+---
+
+### The textbook algorithms
+
+- Dijkstra's algorithm (1959): $O(m + n \log n)$ time
+- Bellman-Ford algorithm (1958): $O(mn)$ time
+
+.column-2[
+<p>
+    <img src="/assets/arXiv--2504.17033/Dijkstra_Animation.gif"><br>
+    <small>Dijkstra</small>
+</p>
+<p>
+    <img src="/assets/arXiv--2504.17033/Bellman_Ford_Animation.gif" width="78%"><br>
+    <small>Bellman-Ford</small>
+</p>
+]
+
+.font-xs.mt-xl[
+credits gif: [Bellman-Ford](https://en.wikipedia.org/wiki/Bellman%E2%80%93Ford_algorithm), [Dijkstra](https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm)
+]
+
+---
+
+### The sorting barrier
+
+- B Haeupler & al [showed](https://ai.dmi.unibas.ch/research/reading_group/haeupler-et-al-focs2024.pdf) that Dijkstra's algorithm is optimal if we want to output the distances in increasing order.
+- Dijkstra's algorithm repeatedly picks the node closest to the source and maintains a priority queue to do so. 
+The cost of maintaining that total order in the frontier has a lower bound of $O(n \log n)$ which leads to time complexity $O(m + n \log n)$.
+
+---
+
+### The paper's result
+
+The main result of the paper is stated in theorem 1.1 as follows:
+
+> There exists a deterministic algorithm that takes $O(m \log^{2/3}(n))$ time to solve the single-source shortest path problem on directed graphs with real non-negative edge weights.
+
+
+---
+
+class: nord-light, center, middle
+
+# Preliminaries and Assumptions
+
+<small>.letter-spacing-20[Conditions in which the algorithm works]</small>
+
+---
+
+### Constant Degree Graphs
+
+The first assumption is that the input graph has constant in-degrees and out-degrees and non-negative edge weights.
+A transformation is provided to convert any graph $G$ to a graph $G'$ with at most 2 in-degrees and 2 out-degrees.
+
+<pre class="mermaid">
+graph TD
+
+subgraph "Transformed Graph G'"
+direction LR
+x_A_B((x_AB))
+x_A_C((x_AC))
+x_A_D((x_AD))
+x_C_A((x_CA))
+x_C_B((x_CB))
+x_D_A((x_DA))
+x_D_B((x_DB))
+x_B_A((x_BA))
+x_B_C((x_BC))
+x_B_D((x_BD))
+
+x_A_B --&gt;|6| x_B_A
+x_A_C --&gt;|2| x_C_A
+x_A_D --&gt;|3| x_D_A
+x_C_B --&gt;|2| x_B_C
+x_D_B --&gt;|2| x_B_D
+x_A_B --&gt;|0| x_A_D
+x_A_D --&gt;|0| x_A_C
+x_A_C --&gt;|0| x_A_B
+
+x_B_A --&gt;|0| x_B_C
+x_B_C --&gt;|0| x_B_D
+x_B_D --&gt;|0| x_B_A
+
+x_D_A --&gt;|0| x_D_B
+x_C_A --&gt;|0| x_C_B
+
+end
+
+subgraph "Original Graph G"
+direction LR
+D((D))
+C((C))
+B((B))
+A((A))
+
+A --&gt;|6| B
+A --&gt;|2| C
+A --&gt;|3| D
+C --&gt;|2| B
+D --&gt;|2| B
+end
+
+classDef B fill:#a0c4ff,stroke:#1e3a8a,stroke-width:2px;
+class B,x_B_C,x_B_D,x_B_A B;
+
+classDef A fill:#a0e7a0,stroke:#2e7d32,stroke-width:2px;
+class A,x_A_C,x_A_D,x_A_B A;
+
+classDef C fill:#ffd6a5,stroke:#c2410c,stroke-width:2px;
+class C,x_C_A,x_C_B C;
+
+classDef D fill:#ffafcc,stroke:#9d174d,stroke-width:2px;
+class D,x_D_A,x_D_B D;
+</pre>
+
+At the end we have a graph $G'$ with $O(m)$ nodes and $O(m)$ edges.
+
+---
+
+### Comparison-Addition Model
+
+- Each addition and comparison takes unit time
+- No other computations on edge weights are allowed
+
+---
+
+### Total Order of paths
+
+##### Path definition
+
+A path is tuple $\\langle l, \\alpha, v_{\\alpha}, \\cdots, v_1 \\rangle$
+
+- $l$: length of the path
+- $\\alpha$: number of edges in the path
+- $v_{\\alpha}, \\cdots, v_1$: sequence of nodes in the path
+
+##### Path order
+
+If there is a tie in $l$ and $\\alpha$, break it by lexicographic order of the node sequence.
+
+---
+
+class: nord-light, center, middle
+
+# The Algorithm
+
+<small>.letter-spacing-20[BMSSP steps]</small>
+
+---
+
+### Bounded Multi-Source Shortest Path Problem
+
+.column-2.font-xs[
+
+<h5>Definition</h5>
+
+Given a graph with n nodes and m edges, non-negative edge weights, a set $S$ of source nodes with initial distances and an upper bound $B$,
+find the shortest paths from any node in $S$ to every other node with path length less than $B$.
+
+<h5>Divide and Conquer approach</h5>
+- Let's denote $d[u]$ the solution for node u. Given $B'$ such that $B' < B$, we can split the problem in 2 parts:
+nodes with $d[u] < B'$ and nodes with $B' \\leq d[u] < B$.
+- The first part is the same problem but with a smaller  source set .nord13[{$ u \\in S \\mid d[u] < B' $}]
+- The source set for the second part is the union of .nord12[{$ u \\in S \\mid B' \\leq d[u] < B $}] and the .nord11[set of neighbors of the completed nodes from the first part]
+
+.width-80[
+<pre class="mermaid">
+graph TD
+
+S1((S1 : 0))
+S2((S2 : 0))
+S3((S3 : 6))
+A((A))
+B((B))
+C((C))
+D((D))
+E((E))
+F((F))
+
+S1 --&gt;|1| A
+S1 --&gt;|2| B
+S2 --&gt;|3| B
+S2 --&gt;|4| C
+A --&gt;|6| D
+B --&gt;|4| D
+D --&gt;|4| E
+S3 --&gt;|2| F
+E --&gt;|5| F
+
+classDef s0 fill:#fff59d,stroke:#f9a825,stroke-width:2px;
+class S1,S2 s0;
+classDef s1 fill:#ffd6a5,stroke:#c2410c,stroke-width:2px;
+class S3 s1;
+classDef s2 fill:#ffafcc,stroke:#9d174d,stroke-width:2px;
+class D s2;
+
+subgraph boundary [" "]
+note["B' = 5"]
+end
+</pre>
+]
+]
+
+---
+
+### Finding pivots
+
+.column-2.font-xxs[
+- The precedent slide showed that we can split the problem in 2 parts, in the paper it is split in $2^t$ parts; with $t = \log^{2/3}(n)$.
+- In the worst case, $S$ can contain all nodes in the graph and in each recursion we need to find for each node which part it belongs to. This is why pruning the source set is important.
+- To do so the paper gives us algorithm 1. Given any $k$ it finds a set $P \\subset S$ of size at most $n/k$ and for any node $u$, with $d[u] < B$, 
+if the shortest path to $u$ does not pass through any node in $P$, then it computes $d[u]$ correctly.
+- In the worst case this algorithm runs in $O(nk)$ which leads to $O(n \log^{2/3}(n))$ time when $k = \log^{1/3}(n)$ and the number of recursions $l = \\log(n)/t$.
+
+.width-50.pt-xxs.pr-xs[![](/assets/arXiv--2504.17033/finding_pivots.png)]
+
+<pre class="mermaid">
+graph TD
+
+S1((S1 : 0))
+S2((S2 : 0))
+S3((S3 : 0))
+S4((S4 : 0))
+A((A))
+B((B))
+C((C))
+D((D))
+E((E))
+F((F))
+G((G))
+H((H))
+I((I))
+J((J))
+K((K))
+L((L))
+M((M))
+N((N))
+O((O))
+
+
+S1 --&gt;|1| A
+S2 --&gt;|3| A
+S2 --&gt;|4| B
+S3 --&gt;|1| C
+S4 --&gt;|4| C
+S4 --&gt;|2| D
+A --&gt;|4| E
+A --&gt;|2| F
+F --&gt;|4| G
+E --&gt;|1| H
+E --&gt;|5| O
+C --&gt;|1| J
+D --&gt;|1| L
+J --&gt;|1| G
+J --&gt;|3| K
+H --&gt;|3| N
+G --&gt;|3| M
+K --&gt;|3| I
+
+classDef t0 fill:#88c0d0,stroke:#5e81ac,stroke-width:2px;
+class S4,D,L t0
+classDef t1 fill:#fff59d,stroke:#f9a825,stroke-width:2px;
+class S1,A,E,F,H t1;
+classDef t2 fill:#ffd6a5,stroke:#c2410c,stroke-width:2px;
+class S2,B t2;
+classDef t3 fill:#ffafcc,stroke:#9d174d,stroke-width:2px;
+class S3,C,J,G,K,I,M t3;
+
+subgraph notes [" "]
+note["B = 9"]
+note2["k = 4"]
+end
+</pre>
+
+- Here the selected pivots are $S1$ and $S3$
+]
+
+---
+
+### Base case
+
+The base case is a bounded mini Dijkstra
+
+.width-70.center.pt-xxs.pr-xs[![](/assets/arXiv--2504.17033/base_case.png)]
+
+---
+
+### The Data Structure $\\mathbf{D}$
+
+.font-xs[
+One of the key components of the algorithm is the system of bounds used during pivot selection and in the recursive
+calls.
+Once computed, these bounds must be stored and retrieved precisely when needed for subsequent steps.
+This is why choosing an appropriate data structure to manage them is essential.
+]
+
+--
+
+.rect.dark.round-xxl.green.border.mt-l.font-xs[
+
+.rect.round-xxl.blue.border.width-11[M = 2]
+.rect.round-xxl.blue.border.width-11[B = 50]
+
+.rect.round-xxl.green.border.width-80[
+.rect.m-0.p-0.pb-xxs.width-100[D0: Batch Prepend]
+.rect.round-xxl.green.border.width-11[(B, 10), (H, 11)]
+.rect.round-xxl.green.border.width-11[(C, 14), (E, 14)]
+.rect.round-xxl.green.border.width-11[(J, 16)]
+]
+.rect.round-xxl.lime.border.width-80[
+.rect.m-0.p-0.pb-xxs.width-100[D1: Insert and Split]
+.rect.round-xxl.lime.border.width-11[(D, 20), (F, 25) :ub=25]
+.rect.round-xxl.lime.border.width-11[(I, 26), (G, 30) :ub=35]
+.rect.round-xxl.lime.border.width-11[(K, 40) :ub=40]
+]
+.width-25[
+<pre class="mermaid" style="background-color: var(--oc-green-6); border-color: transparent;">
+graph TD
+
+A((35))
+B((25))
+C((40))
+
+A --&gt; B
+A --&gt; C
+
+classDef black fill:#4f4f45,stroke:#7a7a7a,stroke-width:2px;
+class A black
+
+classDef red fill:#ef5350,stroke:#c62828,stroke-width:2px;
+class B,C red
+</pre>
+]
+]
+
+---
+
+### Overview
+
+.width-70.center.pt-xxs.pr-xs[![](/assets/arXiv--2504.17033/bmssp.png)]
+
+---
+
+class: nord-light, center, middle
+
+# Observations
+
+<small>.letter-spacing-20[correctness, complexity, etc.]</small>
+
+---
+
+### The style of the algorithm
+
+<h6>Divide and conquer</h6>
+Breaks the SSSP into smaller BMSSP problems. 
+Helps not having to sort all of the dynamic frontier all the time.
+
+<h6>Pruning</h6>
+Checks the future with a Bellman-like approach to prune the source set.
+
+<h6>Recursion</h6>
+Gives a lot of information about the algorithms elements; see page 10 of the paper.
+Implies the use of mathematical induction for the correctness proof.
+This also ease the implementation and provides a lot of assertions to check the implementation correctness.
+
+
+---
+
+### Correctness
+
+- The correctness of the algorithm is proven by mathematical induction on the number of recursions.
+- $l = 0$: the base case is a bounded Dijkstra which is correct.
+- $l > 0$: assuming the algorithm is correct for $l - 1$, they prove it is correct for $l$.
+
+---
+
+### Time Complexity
+
+The time complexity depends mainly on:
+- Pivots selection total of $O(n \log^{2/3}(n))$ for all the recursions
+- Total Operations in data structure $\\mathbf{D}$ after all the recursions:
+    - Batch Prepend : $O(n \\log^{1/3}(n) . \\log \\log (n))$
+    - Insertion : $O(m \\log^{2/3}(n))$
+
+---
+
+### Conclusion
+
+- It looks like a very nice and well thought algorithm.
+- There is no open source implementation from the authors
+- I'm currently trying to implement it.

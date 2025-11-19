@@ -169,6 +169,11 @@
     flex-basis: 50%;
 }
 
+.width-70 {
+    width: 70%;
+    flex-basis: 70%;
+}
+
 .width-80 {
     width: 80%;
     flex-basis: 80%;
