@@ -51,9 +51,10 @@ A((A)):::source
 
 A --&gt;|6| B
 A --&gt;|2| C
-A --&gt;|3| D
+A --&gt;|4| D
 C --&gt;|2| B
 D --&gt;|2| B
+C --&gt;|1| D
 
 classDef B fill:#a0c4ff,stroke:#1e3a8a,stroke-width:2px;
 class B B;
@@ -129,29 +130,24 @@ direction LR
 x_A_B((x_AB))
 x_A_C((x_AC))
 x_A_D((x_AD))
-x_C_A((x_CA))
-x_C_B((x_CB))
-x_D_A((x_DA))
-x_D_B((x_DB))
+C1((C))
+D1((D))
 x_B_A((x_BA))
 x_B_C((x_BC))
 x_B_D((x_BD))
 
 x_A_B --&gt;|6| x_B_A
-x_A_C --&gt;|2| x_C_A
-x_A_D --&gt;|3| x_D_A
-x_C_B --&gt;|2| x_B_C
-x_D_B --&gt;|2| x_B_D
+x_A_C --&gt;|2| C1
+x_A_D --&gt;|4| D1
+C1 --&gt;|2| x_B_C
+D1 --&gt;|2| x_B_D
 x_A_B --&gt;|0| x_A_D
 x_A_D --&gt;|0| x_A_C
 x_A_C --&gt;|0| x_A_B
-
+C1 --&gt;|1| D1
 x_B_A --&gt;|0| x_B_C
 x_B_C --&gt;|0| x_B_D
 x_B_D --&gt;|0| x_B_A
-
-x_D_A --&gt;|0| x_D_B
-x_C_A --&gt;|0| x_C_B
 
 end
 
@@ -164,9 +160,10 @@ A((A))
 
 A --&gt;|6| B
 A --&gt;|2| C
-A --&gt;|3| D
+A --&gt;|4| D
 C --&gt;|2| B
 D --&gt;|2| B
+C --&gt;|1| D
 end
 
 classDef B fill:#a0c4ff,stroke:#1e3a8a,stroke-width:2px;
@@ -176,10 +173,10 @@ classDef A fill:#a0e7a0,stroke:#2e7d32,stroke-width:2px;
 class A,x_A_C,x_A_D,x_A_B A;
 
 classDef C fill:#ffd6a5,stroke:#c2410c,stroke-width:2px;
-class C,x_C_A,x_C_B C;
+class C,C1 C;
 
 classDef D fill:#ffafcc,stroke:#9d174d,stroke-width:2px;
-class D,x_D_A,x_D_B D;
+class D,D1 D;
 </pre>
 ]
 
@@ -297,7 +294,7 @@ B((B))
 C((C))
 D((D))
 E((E))
-F((F))
+F((S5 : 6))
 G((G))
 H((H))
 I((I))
@@ -316,8 +313,8 @@ S3 --&gt;|1| C
 S4 --&gt;|4| C
 S4 --&gt;|2| D
 A --&gt;|4| E
-A --&gt;|2| F
-F --&gt;|4| G
+F --&gt;|4| O
+F --&gt;|2| G
 E --&gt;|1| H
 E --&gt;|5| O
 C --&gt;|1| J
@@ -336,6 +333,8 @@ classDef t2 fill:#ffd6a5,stroke:#c2410c,stroke-width:2px;
 class S2,B t2;
 classDef t3 fill:#ffafcc,stroke:#9d174d,stroke-width:2px;
 class S3,C,J,G,K,I,M t3;
+classDef t4 fill:#ef5350,stroke:#c62828,stroke-width:2px;
+class F t4;
 
 subgraph notes [" "]
 note["B = 9"]
