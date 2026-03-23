@@ -8,6 +8,10 @@ body {
     height: 100%;
 }
 
+b, strong {
+  font-weight: 700;
+}
+
 body {
     font-family: Helvetica, Arial, sans-serif;
     font-size: 16px;
@@ -30,6 +34,15 @@ h5,
 h6 {
     font-size: 100%;
     font-weight: 400;
+}
+
+.wrap:before,
+.wrap:after { content:""; display:table; }
+.wrap:after { clear: both; }
+.wrap {
+  max-width: 1200px;
+  margin: 0 auto;
+  zoom: 1;
 }
 
 /* footer */
@@ -120,7 +133,7 @@ h6 {
 }
 
 .navbar-brand {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     font-weight: bold;
     text-decoration: none;
     color: #fff;
@@ -215,10 +228,13 @@ h6 {
     line-height: 1.6;
 }
 
-.about-down {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+.page-title {
+    padding-bottom: 8px;
+    border-bottom: 1px solid #000;
+}
+.section-title {
+    padding-bottom: 8px;
+    border-bottom: 1px solid #e0e0e0e0;
 }
 
 @media (max-width: 600px) {
@@ -230,11 +246,6 @@ h6 {
     .about-top img {
         width: 120px;
         height: 120px;
-    }
-
-    .about-down {
-        flex-direction: column;
-        text-align: center;
     }
 }
 .posts {
