@@ -65,6 +65,7 @@ collections:
   slides:
     output: true
     permalink: /papers/:title/
+    sort_by: date
   posts:
     output: true
     permalink: /posts/:title/

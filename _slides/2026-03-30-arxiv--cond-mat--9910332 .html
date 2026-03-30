@@ -1,0 +1,93 @@
+---
+layout: slide
+title: Emergence of scaling in random networks
+categories: [slides]
+biblio: arXiv:cond-mat/9910332 ~ Albert-László Barabási, Réka Albert (1999)
+mathjax: true
+---
+
+layout: true
+class: typo, typo-selection
+
+.bottom-bar[
+<a href="/papers" , class="nav-link">Back to the papers list</a>
+]
+
+---
+
+count: false
+class: center, middle, hide-the-number
+
+# {{ page.title }}
+
+{{ page.biblio }}
+
+[read the paper](https://arxiv.org/abs/cond-mat/9910332)
+
+<small>.remark-slide-number.not-transparent[{{ site.title }}]</small>
+
+---
+
+### Motivation
+
+Before the paper, network modeling was dominated by random graphs (e.g. Erdős–Rényi). But the problem is connections are not random; real networks have hubs, follow a power law, and are usually not static.
+---
+
+### Key Empirical Observation
+
+By studying some real world networks (e.g. the Web, movie-actor, scientific citations, electrical powergrid of western US), the authors noticed a pattern.
+
+The probability that a vertex in a network interacts with $k$ other vertices follows:
+
+$$
+P(k) \\thicksim k^{-\\gamma}
+$$
+
+with $\\gamma \\in [2, 4]$
+
+This is independent of the system, it's a .nord14[scale-free network]
+
+---
+
+### The Problem with ER and WS
+
+- Both models assume we start with a fixed number of edges
+- The degrees of ER follows a poisson law
+- This leads to the 2 principal mechanism proposed by the paper
+
+---
+
+### Core Idea
+
+- .nord14[Continuous Growth] : start with a number $m_0$ of nodes and add new ones over time
+
+- .nord14[Preferential Attachment] : those new nodes connect to already well-connected nodes
+
+$$
+\\Pi(k_i) = \\frac{k_i}{\\sum_j k_j}
+$$
+
+---
+
+### The BA Model
+
+1. Start with a small network of $m_0$ nodes
+2. At each time step:
+    * Add a new node
+    * Connect it to $m$ existing nodes with probability $\\Pi$
+
+this gives a model with $\\gamma_{model} = 2.9 \\pm 0.1$
+---
+
+### Validation
+
+- A model without preferential attachment was tested and does not produce the scale-free feature
+- A model with fixed number of vertices was tested and it leads to fully connected network
+
+---
+
+### Conclusion
+
+- Real networks are not random
+- Birth of scale-free networks
+- Early nodes accumulate links and become hubs
