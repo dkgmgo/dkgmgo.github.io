@@ -24,6 +24,7 @@ title: About me
     <ul>
       <li>Emergence of Networks</li>
       <li>Graph Embedding</li>
+      <li>Internet Measurement</li>
       <li>Geopolitics of the Internet</li>
     </ul>
   </div>

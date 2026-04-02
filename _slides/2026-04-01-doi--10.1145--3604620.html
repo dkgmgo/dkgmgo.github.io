@@ -1,0 +1,211 @@
+---
+layout: slide
+title: A Manifold View of Connectivity in the Private Backbone Networks of Hyperscalers
+categories: [slides]
+biblio: doi:10.1145/3604620 ~ Loqman Salamatian, Scott Anderson, Joshua Mathews, Paul Barford, Walter Willinger, Mark Crovella (2023)
+mathjax: true
+---
+
+layout: true
+class: typo, typo-selection
+
+.bottom-bar[
+<a href="/papers" , class="nav-link">Back to the papers list</a>
+]
+
+---
+
+count: false
+class: center, middle, hide-the-number
+
+# {{ page.title }}
+
+{{ page.biblio }}
+
+[read the paper](https://dl.acm.org/doi/10.1145/3604620)
+
+<small>.remark-slide-number.not-transparent[{{ site.title }}]</small>
+
+---
+
+class: nord-light, center, middle
+
+# The Problem and the proposed Solution
+
+<small>.letter-spacing-20[When traceroute fails in modern networks, we can still see the Internet using latency and geometry]</small>
+
+---
+
+### Hyperscalers
+
+- Large cloud providers like Google, Amazon, and Microsoft operate massive, global private network infrastructures
+- Increasingly, Internet traffic bypasses the public Internet and rides their private fiber entirely
+
+---
+
+### \`traceroute\` is Dead
+
+- Historically, researchers used \`traceroute\` to map internet paths
+- Today, the tool is increasingly unreliable because:
+    - Hyperscalers can block probes or modify packets
+    - Middleboxes (NAT, DPI) distort measurements
+    - Routers may respond from respond from random interfaces
+
+---
+
+### The Problem with today's Internet
+
+> Hyperscalers now carry most internet traffic but we have largely lost the ability to measure their networks
+
+---
+
+### The Solution
+
+#### Lightweight measurements
+
+- .nord14[The round-trip time (RTT)] is difficult to hide and it can be inferred from the TCP handshake
+- .nord14[The geo-location] of infrastructures can be approximated
+
+#### Heavyweight math:
+
+Assume the data has been generated from an .nord14[unknown complex topological space] and try to .nord14[learn] it (a continuous manifold)
+
+---
+
+class: nord-light, center, middle
+
+# The Paper's Methodology
+
+<small>.letter-spacing-20[The five-step pipeline]</small>
+
+---
+
+### Step 1: Measurement and Data Reduction
+
+.column-2.font-xs[
+
+- Measure all-pairs latency among a set of nodes and compute the residual latencies matrix
+
+    $$
+    RL = \\frac{RTT}{2} - \\frac{GCD}{\\frac{2c}{3}} 
+    $$
+
+    * RL: the residual latency
+    * RTT: the measured round-trip time
+    * GCD: [the great circle distance](https://en.wikipedia.org/wiki/Great-circle_distance)
+    * $\\frac{2c}{3}$: the speed of light in fiber
+
+- A performance threshold $\\epsilon$ defines "nearly straight" edges (latency close to the physical optimum)
+
+
+.center[
+![](/assets/doi--10.1145--3604620/step-1.png)
+]
+
+]
+
+---
+
+### Step 2: Graph Construction
+
+For a given $\\epsilon$ edges with smaller residual latencies form a graph
+
+small $\\epsilon$ $\\implies$ local structure
+
+large $\\epsilon$ $\\implies$ global structure
+
+.center[
+![](/assets/doi--10.1145--3604620/step-2.png)
+]
+
+---
+
+### Step 3: Ricci Curvature
+
+.column-2.font-xs[
+
+- Calculate the .nord14[Ollivier-Ricci curvature] of each edge to assess their importance
+- The curvature is used because it measures the optimal transport of mass between neighborhoods of nodes
+- Since each $\\epsilon$ defines a graph topology, it's possible to visualize them all on a boxplot
+
+##### Intuition
+- negative curvature $\\implies$ bridge/bottleneck
+- zero curvature $\\implies$ grid-like
+- positive curvature $\\implies$ dense/redundant
+
+.center[
+![](/assets/doi--10.1145--3604620/step-3.png)
+]
+]
+
+---
+
+### Step 4: Characterization of edge behavior
+
+To characterize the contribution of an edge the authors have 2 metrics:
+- The .nord14[performance] (right heatmap): it's the edge's residual latency i.e. the value of $\\epsilon$ at which the edge emerges
+- The .nord14[importance] (left heatmap): it's the impact of the edge on network robustness (edges with lower curvature are more important)
+
+
+.center[
+<img class="width-50" src="/assets/doi--10.1145--3604620/step-4.png"><img>
+]
+
+---
+
+### Step 5: Characterization of node behavior
+
+- A [Sankey diagram](https://en.wikipedia.org/wiki/Sankey_diagram) is used to visualize the evolution of the topology as $\\epsilon$ increases.
+- It also shows the well performing clusters and how they are created 
+
+.center[
+<img class="width-50" src="/assets/doi--10.1145--3604620/step-5.png"><img>
+]
+
+---
+
+class: nord-light, center, middle
+
+# The Results
+
+<small>.letter-spacing-20[The Internet is no longer a graph, it’s a curved space]</small>
+
+---
+
+### The manifold view
+
+- Peak $\\implies$ strong local connectivity
+- Saddle $\\implies$ critical bridge
+- Flat $\\implies$ neutral structure
+
+.center[
+<img class="width-70" src="/assets/doi--10.1145--3604620/manifold.png"><img>
+]
+
+.float-right.width-10.center[
+  ![](/assets/doi--10.1145--3604620/peak.png)
+]
+
+---
+
+### Key Findings
+
+- The authors applied the methodology on GC, AWS and Azure. They present results for all providers and analyze Azure in detail
+- The 3 hyperscalers each show 3 well-performing regions (North America, Europe, Asia-Pacific) and other regions with significantly poorer performance, such as Africa
+- On the Azure network examples of critical links include Tokyo - Quincy and Mumbai - London
+- Africa and South America are weakly connected to the rest of the network
+- The results show that geography and geopolitics strongly influence network structure
+
+---
+
+.center[
+<img class="width-50" src="/assets/doi--10.1145--3604620/hyperscalers-manifold.png"><img>
+]
+
+---
+
+### Conclusion
+
+- From discrete (graph theory) to continuous (differential geometry)
+- From Observation to Inference: "We can't see the network so we infer it"
+- Geometry (curvature) as a big source of information
