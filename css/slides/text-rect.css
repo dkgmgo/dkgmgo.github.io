@@ -95,6 +95,11 @@
     border-style: solid;
 }
 
+.rect.big-border {
+    border-width: 3px;
+    border-style: solid;
+}
+
 .rect.dash-border {
     border-width: 1px;
     border-style: dashed;
