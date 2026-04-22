@@ -341,3 +341,11 @@
     --oc-orange-9-rgb: 217, 72, 15;
 
 }
+
+.open-color-red-7 {
+    color: var(--oc-red-7);
+}
+
+.open-color-green-7 {
+    color: var(--oc-green-7);
+}

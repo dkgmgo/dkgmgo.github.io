@@ -1,0 +1,254 @@
+---
+layout: slide
+title: A Gentle Tutorial of the EM algorithm and its application to Parameter Estimation for Gaussian Mixture and Hidden Markov Models
+categories: [slides]
+biblio: ICSI Technical Report TR-97-021 ~ Jeff A. Bilmes (1998)
+mathjax: true
+---
+
+layout: true
+class: typo, typo-selection
+
+.bottom-bar[
+<a href="/papers" , class="nav-link">Back to the papers list</a>
+]
+
+---
+
+count: false
+class: center, middle, hide-the-number
+
+# {{ page.title }}
+
+{{ page.biblio }}
+
+[read the paper](https://people.ece.uw.edu/bilmes/p/mypubs/bilmes1997-em.pdf)
+
+<small>.remark-slide-number.not-transparent[{{ site.title }}]</small>
+
+---
+
+class: nord-light, center, middle
+
+# The Setup
+
+<small>.letter-spacing-20[MLE and EM]</small>
+
+---
+
+### The Maximum Likelihood Estimation (MLE) problem
+
+- MLE aims to find the "best" parameters ($\\Theta$) for a probability distribution that most likely generated a given set of observed data ($X$).
+- Formally, MLE seeks to maximize the likelihood function 
+
+.block-middle.width-60[
+.rect.dark.green.transbg.big-border[
+$$
+    L(\\Theta|X) = \\prod_{i=1}^N p(x_i|\\Theta) = p(X|\\Theta)
+$$
+
+$$
+    i.e. \\quad \\Theta^{*} = \\underset{\\Theta}{\\operatorname{argmax}} L(\\Theta|X)
+$$
+]
+]
+
+- We often work with the log-likelihood $\\log (L(\\Theta|X))$ because it is analytically easier.
+
+---
+
+### Why is Expectation-Maximization (EM) needed?
+
+- For simple distributions, the derivative of the log-likelihood can be computed easily, making MLE straightforward.
+- However, for more complex ones, we can encounter difficulties:
+    - There may be latent (hidden) variables that are not observed in the data.
+    - The log-likelihood may involve a log of a sum, which is not straightforward to optimize.
+
+---
+
+### Core idea of EM
+
+- The key idea of EM is the introduction of hidden variables to simplify the optimization problem.
+- The introduced hidden variable $Y$, if known, would make the likelihood easier to optimize.
+- We now have a .nord14[complete-data log-likelihood] $\\log (L(\\Theta | X, Y))$
+
+---
+
+### EM algorithm
+
+EM is an iterative algorithm that alternates between two steps:
+- **E-step (Expectation step)**: Compute the expected value of the log-likelihood with respect to the hidden variables, given the current parameter estimates.
+
+.open-color-red-7[
+$$
+Q(\\Theta | \\Theta^{(i-1)}) = \\mathbb{E}[\\log (p(X, Y | \\Theta)) | X, \\Theta^{(i-1)}]
+$$
+]
+
+- **M-step (Maximization step)**: Maximize this expected log-likelihood to update the parameter estimates.
+
+.open-color-green-7[
+$$
+\\Theta^{(i)} = \\underset{\\Theta}{\\operatorname{argmax}} Q(\\Theta | \\Theta^{(i-1)})
+$$
+]
+
+**Intuition**: We optimize a proxy that keeps improving the real objective; the likelihood curve increases step by step.
+
+---
+
+class: nord-light, center, middle
+
+# Gaussian Mixture Models (GMMs)
+
+<small>.letter-spacing-20[first application]</small>
+
+---
+
+### Definition
+
+One of the most common applications of EM is the mixture-density estimation problem because with the probabilistic model $p(x | \\Theta) =  \\sum_{i=1}^M \\alpha_i p_i(x | \\theta_i)$ , we face a .nord11[log of a sum] in the log-likelihood.
+
+However, if we introduce a hidden variable $Y$ .nord14[that indicates which component generated each data point], the complete-data log-likelihood becomes easier to optimize.
+
+And then if the component distributions are Gaussian, it is possible to get the analytical expressions of the parameters.
+
+---
+
+### E-step for GMM : soft clustering
+
+This step computes the "responsibilities", which are the posterior probabilities of each component $l$ using Bayes' rule.
+
+$$
+p(l | x\\_i, \\Theta^g) = \\frac{\\alpha^g\\_l p\\_l(x\\_i | \\theta^g\\_l)}{\\sum\\_{j=1}^M \\alpha^g\\_j p\\_j(x\\_i | \\theta^g\\_j)}
+$$
+
+Each data point is softly assigned to every component with a certain probability and the $Q$ function is:
+
+$$
+Q(\\Theta | \\Theta^{g}) = \\sum\\_{l=1}^M \\sum\\_{i=1}^N \\log(\\alpha\\_l p\\_l(x\\_i | \\theta\\_l)) p(l | x\\_i, \\Theta^g)
+$$
+
+---
+
+### M-step for GMM : weighted update
+
+- $\\alpha^{new}_l$ : average responsibility (i.e., expected proportion of points assigned to component l)
+
+$$
+\\alpha^{new}\\_l = \\frac{1}{N} \\sum\\_{i=1}^N p(l | x\\_i, \\Theta^g)
+$$
+
+- $\\mu^{new}_l$ : weighted average of all data points, weighted by responsibility
+
+$$
+\\mu^{new}\\_l = \\frac{\\sum\\_{i=1}^N x\\_i p(l | x\\_i, \\Theta^g)}{\\sum\\_{i=1}^N p(l | x\\_i, \\Theta^g)}
+$$
+
+- $\\Sigma^{new}_l$ : responsibility-weighted covariance
+
+$$
+\\Sigma^{new}\\_l = \\frac{\\sum\\_{i=1}^N p(l | x\\_i, \\Theta^g) (x\\_i - \\mu^{new}\\_l)(x\\_i - \\mu^{new}\\_l)^T}{\\sum\\_{i=1}^N p(l | x\\_i, \\Theta^g)}
+$$
+
+---
+
+class: nord-light, center, middle
+
+# Hidden Markov Models (HMMs)
+
+<small>.letter-spacing-20[second application]</small>
+
+---
+
+###  Definition
+
+A Hidden Markov Model is a probabilistic model of the joint probability of a collection of random variables:
+$
+\\lbrace O\\_1, \\ldots, O\\_T, Q\\_1, \\ldots, Q\\_T \\rbrace
+$ .
+$O\\_t$ are continuous/discrete observations and $Q\\_t$ are the discrete hidden states producing the observations.
+We assume an initial state distribution $\\pi$, and the fact that the underlying Markov chain is time-homogeneous so we have transition matrix $A = \\lbrace a\_{ij} \\rbrace$ and the emission probabilities $B = \\lbrace b\\_j(o\\_t) \\rbrace$. 
+The model is denoted by $ \\lambda = (\\pi, A, B) $
+
+.block-middle.width-50[
+.mermaid[
+<pre>
+    flowchart LR
+    Q1(["Q₁"]) --&gt;|"A"| Q2(["Q₂"])
+    Q2(["Q₂"]) --&gt;|"A"| Qdots(["..."])
+    Qdots --&gt;|"A"| Qt(["Qₜ"])
+
+    Q1 --&gt;|"B"| O1["O₁"]
+    Q2 --&gt;|"B"| O2["O₂"]
+    Qdots --&gt;|"B"| Odots["..."]
+    Qt --&gt;|"B"| Ot["Oₜ"]
+
+    classDef state fill:#4CAF50,stroke:#2E7D32,stroke-width:2px,color:#ffffff;
+    classDef output fill:#2196F3,stroke:#1565C0,stroke-width:2px,color:#ffffff;
+
+    class Q1,Q2,Qdots,Qt state;
+    class O1,O2,Odots,Ot output;
+</pre>
+]
+]
+
+---
+
+### The forward-backward trick
+
+Computing $P(Y|X, \\Theta)$ in this case means summing over all $N^T$ possible state sequences, this is exponential, the forward-backward algorithm reduces this to $O(N^2T)$.
+
+The trick is to isolate the probability of being in a state $i$ at time $t$ by intersecting the past (forward) and the future (backward).
+
+$$
+\\alpha\\_i(t) \\beta\\_i(t) = p(O, Q\\_t = i | \\lambda)
+$$
+
+---
+
+### E-step for HMM
+
+- $ \\gamma\\_i(t) = p(Q\\_t = i | O, \\lambda) $ : probability of being in state $i$ at time $t$:
+
+$$
+\\gamma\\_i(t) = \\frac{\\alpha\\_i(t) \\beta\\_i(t)}{\\sum\\_{j=1}^N \\alpha\\_j(t) \\beta\\_j(t)}
+$$
+
+- $ \\xi\\_{ij}(t) = p(Q\\_t = i, Q\\_{t+1} = j | O, \\lambda) $ : probability of transitioning from state $i$  to state $j$ at time $t$:
+
+$$
+\\xi\\_{ij}(t) = \\frac{\\alpha\\_i(t) a\\_{ij} b\\_j(o\\_{t+1}) \\beta\\_j(t+1)}{\\sum\\_{k=1}^N \\sum\\_{l=1}^N \\alpha\\_k(t) a\\_{kl} b\\_l(O\\_{t+1}) \\beta\\_l(t+1)}
+$$
+
+---
+
+### M-step for HMM : Update
+
+- Initial state distribution:
+
+$$
+\\pi\\_i^{new} = \\gamma\\_i(1)
+$$
+
+- Transition probabilities:
+
+$$
+a\\_{ij}^{new} = \\frac{\\sum\\_{t=1}^{T-1} \\xi\\_{ij}(t)}{\\sum\\_{t=1}^{T-1} \\gamma\\_i(t)}
+$$
+
+- Emission probabilities:
+
+$$
+b\\_j^{new}(k) = \\frac{\\sum\\_{t=1}^T \\delta\\_{o\\_t,v\\_k} \\gamma\\_j(t)}{\\sum\\_{t=1}^T \\gamma\\_j(t)}
+$$
+
+The same results can be obtained by estimating using the $Q$ function.
+---
+
+### Conclusion
+
+- EM is a powerful algorithm to solve MLE problems with latent variables and complex likelihoods.
+- Each iteration of EM guarantees an increase in the likelihood, but it may converge to a local maximum.
+- The E-step replaces unknowns with expectations
+- The M-step is just weighted maximum likelihood
