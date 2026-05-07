@@ -13,10 +13,21 @@ layout: default
         {{ content }}
     </article>
 
+    <link rel="stylesheet" type="text/css" href="/css/posts/toc.css" />
+    <link rel="stylesheet" type="text/css" href="/css/posts/text.css" />
+
     <!-- mathjax -->
     {% if page.mathjax %}
-    <script type="text/javascript"
-        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript">
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true
+            }
+        });
+    </script>
     {% endif %}
 
     <!-- disqus comments -->
