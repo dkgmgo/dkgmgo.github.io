@@ -3,6 +3,7 @@ layout: post
 title:  "An EM algorithm for a Mixture of Gamma distributions in Python"
 date:   2026-05-13 00:00:00
 mathjax: true
+comments: true
 categories: python algorithm
 ---
 

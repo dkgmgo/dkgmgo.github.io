@@ -8,6 +8,13 @@ permalink: /blog/
 ---
 
 <div class="home">
+  <div class="search-wrapper">
+		<div class="search-box">
+			<i class="fab fa-magnify"></i>
+			<input type="text" id="search" placeholder="Search posts..." oninput="filter(this.value)"/>
+			<button class="clear-btn" id="clear-btn" onclick="clearSearch()" aria-label="Clear search">&#x2715;</button>
+		</div>
+  </div>
   <ul class="posts">
     {% for post in site.posts %}
       <li>
@@ -18,4 +25,7 @@ permalink: /blog/
       </li>
     {% endfor %}
   </ul>
+  <p class="no-results" id="no-results" style="display:none;">No posts found.</p>
 </div>
+
+<script src="/js/search.js"></script>

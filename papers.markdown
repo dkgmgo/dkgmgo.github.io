@@ -11,7 +11,7 @@ permalink: /papers/
   <div class="search-wrapper">
 		<div class="search-box">
 			<i class="fab fa-magnify"></i>
-			<input type="text" id="slide-search" placeholder="Search slides..." oninput="filterSlides(this.value)"/>
+			<input type="text" id="search" placeholder="Search slides..." oninput="filter(this.value)"/>
 			<button class="clear-btn" id="clear-btn" onclick="clearSearch()" aria-label="Clear search">&#x2715;</button>
 		</div>
   </div>
@@ -31,29 +31,4 @@ permalink: /papers/
 	<p class="no-results" id="no-results" style="display:none;">No slides found.</p>
 </div>
 
-<script>
-	function filterSlides(query) {
-		const items = document.querySelectorAll('.posts li');
-		const clearBtn = document.getElementById('clear-btn');
-  	const noResults = document.getElementById('no-results');
-		query = query.toLowerCase().trim();
-		let visibleCount = 0;
-
-		clearBtn.style.display = query ? 'block' : 'none';
-		items.forEach(function(item) {
-			const text = item.textContent.toLowerCase();
-			const match = !query || text.includes(query);
-			item.style.display = match ? '' : 'none';
-			if (match) visibleCount++;
-		});
-
-		noResults.style.display = visibleCount === 0 && query ? 'block' : 'none';
-	}
-
-	function clearSearch() {
-		const input = document.getElementById('slide-search');
-		input.value = '';
-		filterSlides('');
-		input.focus();
-	}
-</script>
+<script src="/js/search.js"></script>

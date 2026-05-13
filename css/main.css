@@ -403,7 +403,7 @@ h6 {
     color: #9ca3af;
     flex-shrink: 0;
 }
-#slide-search {
+#search {
     flex: 1;
     border: none;
     outline: none;
@@ -412,7 +412,7 @@ h6 {
     background: transparent;
     color: #111;
 }
-#slide-search::placeholder {
+#search::placeholder {
     color: #9ca3af;
 }
 .clear-btn {
