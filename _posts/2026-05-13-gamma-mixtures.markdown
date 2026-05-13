@@ -1,13 +1,12 @@
 ---
 layout: post
 title:  "An EM algorithm for a Mixture of Gamma distributions in Python"
+description: "Using the Expectation-Maximization algorithm to fit some given data with a mixture of Gamma distributions."
 date:   2026-05-13 00:00:00
 mathjax: true
 comments: true
 categories: python algorithm
 ---
-
-Using the Expectation-Maximization algorithm to fit some given data with a mixture of Gamma distributions.
 
 * TOC
 {:toc}
