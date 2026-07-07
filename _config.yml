@@ -64,7 +64,7 @@ kramdown:
 collections:
   slides:
     output: true
-    permalink: /papers/:title/
+    permalink: /slides/:title/
     sort_by: date
   posts:
     output: true

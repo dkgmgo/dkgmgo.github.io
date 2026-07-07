@@ -1,12 +1,12 @@
 ---
 layout: page
-title: Paper Presentations
-permalink: /papers/
+title: Slides
+permalink: /slides/
 ---
 
 <div class="home">
   <p>
-  I read some papers, and sometimes I took notes to record what I have learned. I find that putting these insights into a brief, quick slideshow helps me revisit the main ideas later almost as a sort of personal mini-presentation. Here’s a collection of all the slides I’ve created. Feel free to explore and tell me if you have any feedback.
+   This is a collection of slides I’ve made for talks/presentations an quick slideshows about some papers to help me revisit the main ideas later. You can search a slide by date, name or any metadata displayed here. Feel free to explore and tell me if you have any feedback.
   </p><br>
   <div class="search-wrapper">
 		<div class="search-box">
