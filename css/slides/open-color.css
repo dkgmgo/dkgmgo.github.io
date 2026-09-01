@@ -346,6 +346,10 @@
     color: var(--oc-red-7);
 }
 
+.open-color-red-5 {
+    color: var(--oc-red-5);
+}
+
 .open-color-green-7 {
     color: var(--oc-green-7);
 }

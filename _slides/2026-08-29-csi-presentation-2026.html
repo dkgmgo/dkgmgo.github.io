@@ -1,0 +1,299 @@
+---
+layout: slide
+title: Graph analysis through Geometry and Topology
+categories: [slides]
+biblio: Individual Monitoring Committee presentation ~ me (2026)
+mathjax: true
+---
+
+layout: true
+class: typo, typo-selection
+
+.bottom-bar[
+<a href="/slides/" , class="nav-link">Back to the slides list</a>
+]
+
+---
+
+count: false
+class: center, middle, hide-the-number
+
+.abs-layout.top-5.left-0.width-100.simple-row[
+.width-15[
+![](/assets/csi-presentation-2026/logo_usmb.jpg)
+]
+.width-15[
+![](/assets/csi-presentation-2026/logo_ed.jpg)
+]
+.width-15[
+![](/assets/csi-presentation-2026/logo_listic.jpg)
+]
+.width-15[
+![](/assets/csi-presentation-2026/logo_geode.png)
+]
+]
+
+# {{ page.title }}
+
+1st year of trying to create a structural signature of a country from its BGP graph
+
+{{ page.biblio }}
+
+<small>.remark-slide-number.not-transparent[{{ site.title }}]</small>
+
+---
+
+class: nord-light, center, middle
+
+# Thesis context
+
+<small>.letter-spacing-20[Thesis at a Glance]</small>
+
+---
+
+### Research Context: DATAROUTES
+
+DATAROUTES is an ERC-funded research project that maps global internet routing paths to analyze how routing strategies shape the geopolitics and data resilience of cyberspace.
+
+
+.sat-60.font-md.rect.round-lg.teal.border[
+
+.rect.left.m-0.p-0.pb-xxs.width-100[<i>**DATAROUTES**</i>]
+
+.rect.round-lg.green.border.width-25[
+  .rect.m-0.p-0.pb-xxs.width-100[<i>**Data Sources**</i>]
+
+  .rect.round-lg.yellow.border[**Open-Source data from BGP Monitoring**]
+]
+
+.rect.round-lg.green.border.width-25[
+  .rect.m-0.p-0.pb-xxs.width-100[<i>**Goal**</i>]
+
+  .rect.round-lg.yellow.border[**Mapping Internet Routes**]
+]
+
+.rect.round-lg.green.border.width-25[
+  .rect.m-0.p-0.pb-xxs.width-100[<i>**Output**</i>]
+
+  .rect.round-lg.yellow.border[**Open-access Datasets and Tools**]
+]
+
+]
+
+<br>
+
+.font-sm[The thesis contributes to the technical side of this project by developing tools for the analysis of large-scale graphs derived from BGP data.]
+
+---
+
+### From Internet Routing to Graphs
+
+- .nord14[Vertices]: Autonomous Systems (AS)
+- .nord14[Edges]: BGP peering relationships between AS
+
+.simple-row[
+.width-50[
+![](/assets/csi-presentation-2026/portugal.png)
+]
+.width-10[
+![](/assets/csi-presentation-2026/portugal_legend.png)
+]
+]
+
+.center.font-xs[
+A part of Portugal's BGP graph from december 2023
+]
+
+---
+
+### A question the thesis aims to answer
+
+.mt-l.simple-row[
+.width-80.mermaid[
+<pre>
+flowchart LR
+    D["Internet measurements"]
+    G["BGP graphs"]
+
+    D --&gt; G
+
+    subgraph P["Analysis methods"]
+    direction TB
+    T["Graph theory"]
+    Geo["Geometry"]
+    Topo["Topology"]
+    end
+
+    I["Geopolitical insights"]
+
+    G --&gt; T
+    G --&gt; Geo
+    G --&gt; Topo
+
+    T --&gt; I
+    Geo --&gt; I
+    Topo --&gt; I
+
+    classDef data fill:#4dabf7,stroke:#1864ab,stroke-width:2px,color:#ffffff;
+    classDef method fill:#69db7c,stroke:#2b8a3e,stroke-width:2px,color:#212529;
+    classDef result fill:#f06595,stroke:#a61e4d,stroke-width:2px,color:#ffffff;
+
+    class D,G data;
+    class T,Geo,Topo method;
+    class I result;
+</pre>
+]
+]
+
+<br>
+
+.center.open-color-red-5[Can geometric and topological approaches reveal structural information that classical methods miss on BGP graphs?]
+
+---
+
+### Thesis Objectives
+
+.mt-xxl.simple-row[
+.rect.round-lg.blue.border.width-50[
+**Scale**
+
+Efficient and scalable methods for processing large graphs
+]
+.rect.round-lg.green.border.width-50[
+**Characterize**
+
+Describe territories and networks through their BGP graphs
+]
+]
+
+.simple-row[
+.rect.round-lg.pink.border.width-50[
+**Transfer**
+
+Move mature methods to the DATAROUTES analysis platform
+]
+]
+---
+
+class: nord-light, center, middle
+
+# Current Methods for BGP Graph Analysis
+
+<small>.letter-spacing-20[Graph theory and synthetic models]</small>
+
+---
+
+### Basic Graph concepts
+
+.mt-m.simple-row[
+.width-100[
+<img src="/assets/csi-presentation-2026/graph-concepts.svg" style="width:100%;height:auto" alt="Degree, path, density, connected components and centrality shown on one shared 7-vertex graph"/>
+]
+]
+
+---
+
+### Centrality
+
+This is a quite known feature when studying a graph's resilience. we can talk about:
+
+- .nord14[Degree centrality]: Number of edges connected to a vertex
+- .nord14[Betweenness centrality]: Number of shortest paths that pass through a vertex
+- .nord14[Closeness centrality]: Average length of the shortest paths from a vertex to all other vertices in the graph
+- and more...
+
+---
+
+### What can we do with this ?
+
+.font-sm[
+- .font-xl.nord14[+] We have some features for each BGP graph, we can compare them
+- .font-xl.nord11[-] Many countries have similar metrics
+- .font-xl.nord11[-] Local metrics miss the global organization of the graph
+]
+
+It does not feel like it is enough, we need descriptors of geometry and topology
+
+---
+
+### Using synthetic graph models
+
+We saw that classical graph characterization techniques gives us some information about the country but it's not enough. But what if the BGP graph looks like a known model ?
+
+---
+
+### Known graph models
+
+- .nord14[Erdős–Rényi (ER)]: Random graph model where each edge is included with a fixed probability
+- .nord14[Barabási–Albert (BA)]: Scale-free network model where new vertices are added preferentially to existing vertices with high degree
+- .nord14[stochastic block model (SBM)]: Random graph model where vertices are divided into blocks
+- .nord14[Random Geometric Graph (RGG)]: Random graph model where vertices are placed in a metric space and edges are added based on distance
+
+---
+
+What do they miss? 
+
+---
+
+class: nord-light, center, middle
+
+# Using Geometry
+
+<small>.letter-spacing-20[Ricci flow]</small>
+
+---
+
+class: nord-light, center, middle
+
+# Using Topology
+
+<small>.letter-spacing-20[TDA on graphs]</small>
+
+---
+
+class: nord-light, center, middle
+
+# Synthesis and Perspectives
+
+<small>.letter-spacing-20[TDA on graphs]</small>
+
+---
+
+class: nord-light, center, middle
+
+# Outside of research
+
+<small>.letter-spacing-20[other stuffs]</small>
+
+---
+
+### Teaching
+
+- Digital Signal Processing
+- Collaborative Platforms
+- Cyber-Physical Systems Security
+
+---
+
+### Training
+
+- Gray-Scott Summer School 2026
+- Chinese Language Learning
+
+---
+
+### Community
+
+- PhD seminar presentation
+- STPC at IMC 2026
+- My personal website
+
+---
+
+### Retrospective
+
+(mongolfiere)
+
+---
+
+### References

@@ -49,6 +49,10 @@
     top: 0%;
 }
 
+.top-5 {
+    top: 5%;
+}
+
 .top-10 {
     top: 10%;
 }
@@ -159,6 +163,11 @@
     flex-basis: 10%;
 }
 
+.width-15 {
+    width: 15%;
+    flex-basis: 15%;
+}
+
 .width-25 {
     width: 25%;
     flex-basis: 25%;
@@ -258,4 +267,11 @@
   display: block;
   height: 0;
   overflow: hidden;
+}
+
+.simple-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
 }
