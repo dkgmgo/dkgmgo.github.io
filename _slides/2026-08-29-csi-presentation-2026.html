@@ -35,7 +35,7 @@ class: center, middle, hide-the-number
 
 # {{ page.title }}
 
-1st year of trying to create a structural signature of a country from its BGP graph
+First year of developing a structural signature of a country from its BGP graph
 
 {{ page.biblio }}
 
@@ -101,7 +101,7 @@ DATAROUTES is an ERC-funded research project that maps global internet routing p
 ]
 
 .center.font-xs[
-A part of Portugal's BGP graph from december 2023
+A part of Portugal's BGP graph from December 2023
 ]
 
 ---
@@ -183,10 +183,10 @@ class: nord-light, center, middle
 
 ---
 
-### Basic Graph concepts
+### Basic Graph Concepts
 
-.mt-m.simple-row[
-.width-100[
+.simple-row[
+.center.width-100[
 ![](/assets/csi-presentation-2026/graph-concepts.svg)
 ]
 ]
@@ -203,7 +203,7 @@ class: nord-light, center, middle
 ]
 
 .mt-s.simple-row[
-.width-100[
+.center.width-100[
 ![](/assets/csi-presentation-2026/centrality.svg)
 ]
 ]
@@ -308,7 +308,7 @@ class: nord-light, center, middle
 .font-sm[
 .nord14[Recipe]: place vertices as points on a low-dimensional manifold, edges are geodesics, and use the manifold's geometry to analyze the graph.
 
-.nord14[The Catch]: .open-color-red-5[The embedding can distort distances and local geometry; Correct geometric inference requires an appropriate metric tensor]
+.nord14[The Catch]: .open-color-red-5[The embedding can distort distances and local geometry; correct geometric inference requires an appropriate metric tensor]
 ]
 
 .mt-s.simple-row[
@@ -343,7 +343,7 @@ credits image: https://arxiv.org/abs/2508.11390
 ### The Discrete Ricci flow (it converges!)
 
 .font-sm[
-- Convergence Demo
+- Convergence
 - Distances reflect the global structure of the graph
 ]
 
@@ -375,7 +375,7 @@ Example of Gamma Mixture Model clustering on the edges of graph of type bottlene
 
 ### Examples of Revelations on BGP graphs
 
-Average internal distance and Average distance to neighboring countries can reveal:
+Average internal distance and average distance to neighboring countries can reveal:
 
 - Censorship in some countries
 - Presence of Hyperscalers in some countries
@@ -422,7 +422,7 @@ credits image: https://arxiv.org/pdf/2302.09826v4
 Classical pipeline of TDA: from a point cloud to a persistence diagram
 ]
 
-At the end of the filtration the persistence diagram contains feature and information about the data that can be used by a ML pipeline.
+At the end of the filtration, the persistence diagram contains features and information about the data that can be used by an ML pipeline.
 
 .font-xxs[
 credits image: https://geometrica.saclay.inria.fr/team/Fred.Chazal/slides/Persistence2025_v24nov2025.pdf
@@ -434,8 +434,8 @@ credits image: https://geometrica.saclay.inria.fr/team/Fred.Chazal/slides/Persis
 
 Graph classification can be done using HMM on the persistence data obtained from the filtration. 
 
-- We reached .nord14[89,5%] accuracy on the MUTAG dataset
-- On a synthetic dataset with ER, BA, bottleneck and SBM graphs we reached .nord14[93,7%] accuracy
+- We reached .nord14[89.5%] accuracy on the MUTAG dataset
+- On a synthetic dataset with ER, BA, bottleneck and SBM graphs we reached .nord14[93.7%] accuracy
 
 ---
 
@@ -472,13 +472,15 @@ class: nord-light, center, middle
 
 # Synthesis and Perspectives
 
-<small>.letter-spacing-20[outputs and retrospective]</small>
+<small>.letter-spacing-20[Outputs and Retrospective]</small>
 
 ---
 
 ### Outputs
 
 - BMSSP project
+- Ongoing projects
+- GNesis for visualization
 
 ---
 
@@ -575,10 +577,23 @@ graph TB
 
 ---
 
-### Retrospective
-
-(mongolfiere)
+.simple-row[
+![](/assets/csi-presentation-2026/retro.png)
+]
 
 ---
 
 ### References
+.font-sm[
+- Naama, S., Salamatian, K., & Bronzino, F. (2024). Ironing the Graphs: Toward a Correct Geometric Analysis of Large-Scale Graphs.
+- Ollivier, Y. (2009). Ricci curvature of Markov chains on metric spaces. Journal of Functional Analysis, 256(3), 810–864.
+- Banf, M., Filipiak, D., Schattauer, M., & Imasheva, L. (2025). A Remedy for Over-Squashing in Graph Learning via Forman–Ricci Curvature based Graph-to-Hypergraph Structural Lifting.
+- Ni, C.-C., Lin, Y.-Y., Luo, F., & Gao, J. (2019). Community detection on networks with Ricci flow. Scientific Reports, 9, 9984.
+- Chazal, F. (2025). Persistence in Topological Data Analysis (lecture slides). Inria.
+- Carlsson, G. (2009). Topology and data. Bulletin of the American Mathematical Society, 46(2), 255–308.
+- Ballester, R., & Rieck, B. (2024). On the Expressivity of Persistent Homology in Graph Learning. Learning on Graphs Conference (LoG).
+- Farrelly, C. M., & Gaba, Y. U. (2023). The Shape of Data: Geometry-Based Machine Learning and Data Analysis in R. No Starch Press.
+- Bilmes, J. A. (1997). A Gentle Tutorial of the EM Algorithm and its Application to Parameter Estimation for Gaussian Mixture and Hidden Markov Models. Technical Report TR-97-021,ICSI, Berkeley, CA.
+- Salamatian, L., Anderson, S., Mathews, J., Barford, P., Willinger, W., & Crovella, M. (2023). A Manifold View of Connectivity in the Private Backbone Networks of Hyperscalers. Communications of the ACM, 66(8), 95–103.
+- Duan, R., Mao, J., Mao, X., Shu, X., & Yin, L. (2025). Breaking the Sorting Barrier for Directed Single-Source Shortest Paths.
+]
