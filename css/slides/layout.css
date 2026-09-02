@@ -173,6 +173,11 @@
     flex-basis: 25%;
 }
 
+.width-33 {
+    width: 33%;
+    flex-basis: 33%;
+}
+
 .width-50 {
     width: 50%;
     flex-basis: 50%;
@@ -274,4 +279,9 @@
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
+}
+
+/* must follow .simple-row: same specificity, later declaration wins */
+.align-top {
+  align-items: flex-start;
 }

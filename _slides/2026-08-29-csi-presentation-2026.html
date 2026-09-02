@@ -56,9 +56,9 @@ class: nord-light, center, middle
 DATAROUTES is an ERC-funded research project that maps global internet routing paths to analyze how routing strategies shape the geopolitics and data resilience of cyberspace.
 
 
-.sat-60.font-md.rect.round-lg.teal.border[
+.font-md.rect.round-lg.teal.border[
 
-.rect.left.m-0.p-0.pb-xxs.width-100[<i>**DATAROUTES**</i>]
+.rect.m-0.p-0.pb-xxs.width-100[<i>**DATAROUTES**</i>]
 
 .rect.round-lg.green.border.width-25[
   .rect.m-0.p-0.pb-xxs.width-100[<i>**Data Sources**</i>]
@@ -177,7 +177,7 @@ Move mature methods to the DATAROUTES analysis platform
 
 class: nord-light, center, middle
 
-# Current Methods for BGP Graph Analysis
+# Classical Methods for BGP Graph Analysis
 
 <small>.letter-spacing-20[Graph theory and synthetic models]</small>
 
@@ -187,7 +187,7 @@ class: nord-light, center, middle
 
 .mt-m.simple-row[
 .width-100[
-<img src="/assets/csi-presentation-2026/graph-concepts.svg" style="width:100%;height:auto" alt="Degree, path, density, connected components and centrality shown on one shared 7-vertex graph"/>
+![](/assets/csi-presentation-2026/graph-concepts.svg)
 ]
 ]
 
@@ -195,43 +195,103 @@ class: nord-light, center, middle
 
 ### Centrality
 
-This is a quite known feature when studying a graph's resilience. we can talk about:
-
-- .nord14[Degree centrality]: Number of edges connected to a vertex
-- .nord14[Betweenness centrality]: Number of shortest paths that pass through a vertex
-- .nord14[Closeness centrality]: Average length of the shortest paths from a vertex to all other vertices in the graph
-- and more...
-
----
-
-### What can we do with this ?
-
 .font-sm[
-- .font-xl.nord14[+] We have some features for each BGP graph, we can compare them
-- .font-xl.nord11[-] Many countries have similar metrics
-- .font-xl.nord11[-] Local metrics miss the global organization of the graph
+- .nord14[Degree]: number of edges at a vertex
+- .nord14[Betweenness]: number of shortest paths passing through a vertex
+- .nord14[Closeness]: inverse of the mean shortest-path distance to every other vertex
+- and more...
 ]
 
-It does not feel like it is enough, we need descriptors of geometry and topology
+.mt-s.simple-row[
+.width-100[
+![](/assets/csi-presentation-2026/centrality.svg)
+]
+]
+
+.center.font-xs[All three agree .nord14[C] is the hub, but not below it: .nord14[E] has average degree and bottom-tier betweenness (no transit role).]
 
 ---
 
-### Using synthetic graph models
+### Other Concepts
 
-We saw that classical graph characterization techniques gives us some information about the country but it's not enough. But what if the BGP graph looks like a known model ?
+- Local
+  - .nord14[Triadic closure]: related to the number of triangles a vertex is part of
+  - .nord14[Diversity]: how heterogeneous its neighborhood attributes are
+
+
+--
+
+- Spectral Measures
+  - .nord14[Spectral Radius]: maximum of the absolute values of the adjacency matrix eigenvalues
+  - .nord14[Graph Laplacian]: connects discrete graph vertices to continuous calculus operations
+
 
 ---
 
 ### Known graph models
 
-- .nord14[Erdős–Rényi (ER)]: Random graph model where each edge is included with a fixed probability
-- .nord14[Barabási–Albert (BA)]: Scale-free network model where new vertices are added preferentially to existing vertices with high degree
-- .nord14[stochastic block model (SBM)]: Random graph model where vertices are divided into blocks
-- .nord14[Random Geometric Graph (RGG)]: Random graph model where vertices are placed in a metric space and edges are added based on distance
+.mt-l.font-sm.rect.round-lg.green.border[
 
+.rect.m-0.p-0.pb-xxs.width-100[<i>**Graph models**</i>]
+
+.rect.round-lg.indigo.border.width-33[
+  .rect.m-0.p-0.pb-xxs.width-100[<i>**Erdős–Rényi (ER)**</i>]
+
+  .rect.round-lg.cyan.border[**Each edge present with a fixed probability**]
+]
+
+.rect.round-lg.indigo.border.width-33[
+  .rect.m-0.p-0.pb-xxs.width-100[<i>**Watts–Strogatz (WS)**</i>]
+
+  .rect.round-lg.cyan.border[**Ring lattice with random rewiring, small-world**]
+]
+
+.rect.round-lg.indigo.border.width-33[
+  .rect.m-0.p-0.pb-xxs.width-100[<i>**Barabási–Albert (BA)**</i>]
+
+  .rect.round-lg.cyan.border[**Preferential attachment, scale-free degrees**]
+]
+
+.rect.round-lg.indigo.border.width-33[
+  .rect.m-0.p-0.pb-xxs.width-100[<i>**Stochastic block model (SBM)**</i>]
+
+  .rect.round-lg.cyan.border[**Vertices grouped in blocks, one density per block pair**]
+]
+
+.rect.round-lg.indigo.border.width-33[
+  .rect.m-0.p-0.pb-xxs.width-100[<i>**Random geometric graph (RGG)**</i>]
+
+  .rect.round-lg.cyan.border[**Vertices in a metric space, edges by distance**]
+]
+
+.rect.round-lg.indigo.border.width-33[
+  .rect.m-0.p-0.pb-xxs.width-100[<i>**etc.**</i>]
+
+  .rect.round-lg.cyan.border[**Configuration model, Kronecker, hyperbolic, ...**]
+]
+
+]
 ---
 
-What do they miss? 
+### Analyzing Networks
+
+- .nord12[Using Network Data for Supervised Learning]: 
+  - Predicting missing edges
+  - Predicting vertex attributes 
+
+--
+
+- .nord12[Using Network Data for Unsupervised Learning]: 
+  - Clustering vertices
+  - Detecting communities
+
+--
+
+- .nord12[Comparing Networks]:
+    - Against synthetic models
+    - Using graph kernels
+    - Using graph embeddings
+  
 
 ---
 
@@ -243,11 +303,168 @@ class: nord-light, center, middle
 
 ---
 
+### The Graph Embedding Idea
+
+.font-sm[
+.nord14[Recipe]: place vertices as points on a low-dimensional manifold, edges are geodesics, and use the manifold's geometry to analyze the graph.
+
+.nord14[The Catch]: .open-color-red-5[The embedding can distort distances and local geometry; Correct geometric inference requires an appropriate metric tensor]
+]
+
+.mt-s.simple-row[
+.width-80[
+![](/assets/csi-presentation-2026/embedding.svg)
+]
+]
+
+.center[We need a .nord14[metric] whose induced space is .nord14[homogeneous] and .nord14[isotropic].]
+---
+
+### Ricci curvature on graphs
+
+.font-sm[
+- Curvature is a measure of how much a geometric object deviates from being flat.
+- Ricci curvature does this by tracking how nearby geodesics converge or diverge.
+- A discrete version of it, the Ollivier-Ricci curvature, can be defined on graphs using optimal transport theory.
+]
+
+.simple-row[
+.width-80[
+![](/assets/csi-presentation-2026/surface_and_graph.png)
+]
+]
+
+.font-xxs[
+credits image: https://arxiv.org/abs/2508.11390
+]
+
+---
+
+### The Discrete Ricci flow (it converges!)
+
+.font-sm[
+- Convergence Demo
+- Distances reflect the global structure of the graph
+]
+
+.width-100[
+![](/assets/csi-presentation-2026/flow-iterations.svg)
+]
+
+---
+
+### Edge clustering
+
+.font-sm[
+This can help us identify some patterns. We can use .nord14[Gamma Mixture Models] for this purpose.
+
+- Data are positive real numbers, right skewed, and often have a long tail
+- Training using the expectation-maximization (EM) algorithm
+]
+
+.simple-row[
+.width-50[
+![](/assets/csi-presentation-2026/gamma_clustering.png)
+]
+]
+.center.font-xs[
+Example of Gamma Mixture Model clustering on the edges of graph of type bottleneck
+]
+
+---
+
+### Examples of Revelations on BGP graphs
+
+Average internal distance and Average distance to neighboring countries can reveal:
+
+- Censorship in some countries
+- Presence of Hyperscalers in some countries
+- Internet access in some countries
+
+---
+
 class: nord-light, center, middle
 
-# Using Topology
+# Topology
 
 <small>.letter-spacing-20[TDA on graphs]</small>
+
+---
+
+### Topological Data Analysis (TDA) concepts
+
+- .nord14[Simplicial complex]: a collection of simplices (points, edges, triangles, etc.); it helps approximate the underlying shape of a dataset
+- .nord14[Betti numbers]: topological invariants that count the number of connected components, holes, and voids in a simplicial complex
+- .nord14[Filtration]: a nested sequence of simplicial complexes that captures the evolution of topological features across different scales
+
+.simple-row[
+.width-80[
+![](/assets/csi-presentation-2026/filtration.png)
+]
+]
+.center.font-xs[
+Example of Filtration
+]
+
+.font-xxs[
+credits image: https://arxiv.org/pdf/2302.09826v4
+]
+---
+
+### Filtration and Persistence diagrams
+
+.simple-row[
+.width-100[
+![](/assets/csi-presentation-2026/tda_pipeline.png)
+]
+]
+.center.font-xs[
+Classical pipeline of TDA: from a point cloud to a persistence diagram
+]
+
+At the end of the filtration the persistence diagram contains feature and information about the data that can be used by a ML pipeline.
+
+.font-xxs[
+credits image: https://geometrica.saclay.inria.fr/team/Fred.Chazal/slides/Persistence2025_v24nov2025.pdf
+]
+
+---
+
+### HMM on filtration data
+
+Graph classification can be done using HMM on the persistence data obtained from the filtration. 
+
+- We reached .nord14[89,5%] accuracy on the MUTAG dataset
+- On a synthetic dataset with ER, BA, bottleneck and SBM graphs we reached .nord14[93,7%] accuracy
+
+---
+
+### TDA on graphs: Analysis during the filtration
+
+.font-sm[
+- We can use a clique complex to build a simplicial complex from a graph
+- We can use a degree filtration but we chose to use the distances obtained from the Ricci flow
+]
+
+.simple-row[
+.width-80[
+![](/assets/csi-presentation-2026/filtration_bottleneck.png)
+]
+]
+
+---
+
+### TDA on graphs: Used as an evaluation tool
+
+.font-sm[
+Using a distance between persistence diagrams (bottleneck or Wasserstein) we can compare graphs and evaluate how well a generative model fits a real graph.
+]
+
+.simple-row[
+.width-60[
+![](/assets/csi-presentation-2026/surrogate_bottleneck.png)
+]
+]
 
 ---
 
@@ -255,38 +472,106 @@ class: nord-light, center, middle
 
 # Synthesis and Perspectives
 
-<small>.letter-spacing-20[TDA on graphs]</small>
+<small>.letter-spacing-20[outputs and retrospective]</small>
+
+---
+
+### Outputs
+
+- BMSSP project
 
 ---
 
 class: nord-light, center, middle
 
-# Outside of research
+# Demo GNesis
 
-<small>.letter-spacing-20[other stuffs]</small>
+<small><a href="/gnesis/" , class="nav-link">Click here to access the demo website</a></small>
 
 ---
 
-### Teaching
+### Outside of research
 
+.mt-l.simple-row.align-top[
+
+.width-33[
+.center[
+.mermaid[
+<pre>
+graph TB
+    C(( )) --> T(( ))
+    C --> L(( ))
+    C --> R(( ))
+
+    classDef center fill:#2583D3,stroke:#2583D3,stroke-width:4px,color:#2583D3
+    classDef outer fill:#DCEEFF,stroke:#2583D3,stroke-width:4px,color:#2583D3
+
+    class C center
+    class T,L,R outer
+</pre>
+]
+
+**Teaching**
+]
+
+.font-sm[
 - Digital Signal Processing
 - Collaborative Platforms
 - Cyber-Physical Systems Security
+]
+]
 
----
+.width-33[
+.center[
+.mb-s.mermaid[
+<pre>
+graph LR
+    T(( )) --- L(( ))
+    T --- R(( ))
+    L --- R
 
-### Training
+    classDef node fill:#E7B4EF,stroke:#B43AC8,stroke-width:4px,color:#B43AC8
 
-- Gray-Scott Summer School 2026
-- Chinese Language Learning
+    class T,L,R node
+</pre>
+]
 
----
+**Community**
+]
 
-### Community
-
+.font-sm[
 - PhD seminar presentation
 - STPC at IMC 2026
 - My personal website
+]
+]
+
+.width-33[
+.center[
+.mermaid[
+<pre>
+graph TB
+    T(( )) --> C(( ))
+    L(( )) --> C
+    R(( )) --> C
+
+    classDef center fill:#08A578,stroke:#08A578,stroke-width:4px,color:#08A578
+    classDef outer fill:#C9F2E5,stroke:#08A578,stroke-width:4px,color:#08A578
+
+    class C center
+    class T,L,R outer
+</pre>
+]
+
+**Training**
+]
+
+.font-sm[
+- Gray-Scott Summer School 2026
+- Chinese Language Learning
+]
+]
+]
 
 ---
 
