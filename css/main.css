@@ -544,3 +544,28 @@ img, iframe, video {
         font-size: 14px;
     }
 }
+/* Accordion sections (activities page) */
+.accordion > summary {
+    list-style: none;
+    cursor: pointer;
+}
+
+.accordion > summary::-webkit-details-marker {
+    display: none;
+}
+
+.accordion > summary .section-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.accordion > summary .section-title::after {
+    content: "\25B8";
+    font-size: 0.8em;
+    transition: transform 0.2s ease;
+}
+
+.accordion[open] > summary .section-title::after {
+    transform: rotate(90deg);
+}
