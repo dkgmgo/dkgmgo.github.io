@@ -3,10 +3,9 @@
         <a href="{{ site.baseurl }}/" class="navbar-brand">{{ site.title }}</a>
 
         <nav class="navbar-menu">
-            {% for page in site.pages %}
-            {% if page.title != "About me" %}
+            {% assign nav_pages = site.pages | where_exp: "page", "page.nav_order" | sort: "nav_order" %}
+            {% for page in nav_pages %}
             <a class="nav-link" href="{{ page.url | prepend: site.baseurl }}">{{ page.title }}</a>
-            {% endif %}
             {% endfor %}
         </nav>
 

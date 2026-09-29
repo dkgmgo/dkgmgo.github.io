@@ -1,6 +1,7 @@
 ---
 layout: page
 title: Slides
+nav_order: 4
 permalink: /slides/
 ---
 

@@ -1,6 +1,7 @@
 ---
 layout: page
 title: Tips
+nav_order: 5
 permalink: /tips/
 ---
 

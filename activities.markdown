@@ -1,6 +1,7 @@
 ---
 layout: page
 title: Activities
+nav_order: 3
 permalink: /activities/
 ---
 
